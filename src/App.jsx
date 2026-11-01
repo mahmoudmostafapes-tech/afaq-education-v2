@@ -172,10 +172,10 @@ const [enrollmentFilter, setEnrollmentFilter] = useState('all');
       setCourses(
         (coursesResult.data || []).map(normalizeCourse)
       );
-      const { data: { user }, error: userError } =
-  await supabase.auth.getUser();
+      const { data: { session } } =
+  await supabase.auth.getSession();
 
-if (userError) throw userError;
+const user = session?.user ?? null;
 
 if (user) {
   const { data: adminStatus, error: adminError } =
